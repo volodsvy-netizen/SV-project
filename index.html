@@ -334,7 +334,7 @@
                         <i class="fas fa-network-wired mr-3"></i> Лабораторна робота: Керування GPIO через мережевий інтерфейс
                     </h3>
                     <p class="text-gray-600 dark:text-gray-300 mb-3">
-                        <strong data-translate="proj-desc">Опис:</strong> <span data-translate="proj2-desc">Практичний досвід роботи з апаратними портами (GPIO) та налагодження зв'язку через локальну мережу для віддаленого контролю.</span>
+                        <strong data-translate="proj-desc">Опис:</strong> <span data-translate="proj2-desc">Практичний досвід роботи з апаратними портами (GPIO) та налагодження зв\'язку через локальну мережу для віддаленого контролю.</span>
                     </p>
                     <!-- Додано клас 'project-image' для JS обробки кліку -->
                     <img src="https://i.postimg.cc/PJtTbVnh/image.png" alt="Керування GPIO портом через мережевий інтерфейс" class="project-image w-full max-w-lg mx-auto rounded-lg shadow-lg my-4 border border-gray-300 dark:border-gray-600 h-auto object-contain cursor-pointer transition-shadow hover:shadow-xl">
@@ -374,7 +374,7 @@
                         Навички: 
                         <!-- Змінено пробіли, використано flex-wrap для коректного переносу, скорочено текст -->
                         <span class="flex flex-wrap mt-2">
-                            <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs mb-2 mr-3" data-translate="proj3-skill1">Командна робота</span>
+                            <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs mb-2 mr-3" data-translate="proj3-skill1">Комунікабельність</span>
                             <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs mb-2 mr-3" data-translate="proj3-skill2">Hardware Int.</span>
                             <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs mb-2 mr-3" data-translate="proj3-skill3">Фізичне тестування</span>
                         </span>
@@ -605,9 +605,12 @@
             <footer class="mt-20 pt-8 border-t border-gray-200 dark:border-gray-700 text-gray-500 text-sm text-center">
                 <p data-translate="footer-copyright">&copy; 2025 Володимир Свищ. Всі права захищені.</p>
                 <div class="flex justify-center space-x-4 mt-4 text-xl">
-                    <a href="#" class="hover:text-primary transition-colors"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="hover:text-primary transition-colors"><i class="fab fa-github"></i></a>
-                    <a href="#" class="hover:text-primary transition-colors"><i class="fab fa-instagram"></i></a>
+                    <!-- LinkedIn -->
+                    <a href="https://linkedin.com/in/volodymyr_svyshch" target="_blank" class="hover:text-primary transition-colors" aria-label="LinkedIn profile"><i class="fab fa-linkedin"></i></a>
+                    <!-- GitHub -->
+                    <a href="https://github.com/volodsvy-netizen" target="_blank" class="hover:text-primary transition-colors" aria-label="GitHub profile"><i class="fab fa-github"></i></a>
+                    <!-- Instagram -->
+                    <a href="https://instagram.com/volodymyr.svyshch" target="_blank" class="hover:text-primary transition-colors" aria-label="Instagram profile"><i class="fab fa-instagram"></i></a>
                 </div>
             </footer>
         </div>
@@ -704,6 +707,7 @@
                 'exp-job2-desc': 'Навчання клієнтів плаванню, покращення техніки. Досвід роботи з іноземцями. Також виконував обов\'язки судді на змаганнях.',
                 'exp-job3-title': 'Дизайнер меблів',
                 'exp-job3-dates': 'Минулий досвід',
+                'exp-job3-company': 'Не вказано',
                 'exp-job3-desc': 'Створення та корегування креслень. Робота вимагала високої уваги до деталей та точності.',
 
                 // Проекти (Projects)
@@ -723,7 +727,7 @@
                 'proj3-title': 'Групова курсова: Розробка металошукача на Arduino',
                 'proj3-desc': 'Груповий проект, спрямований на інтеграцію датчиків, програмування логіки та фінальну збірку функціонального пристрою.',
                 'proj3-skills-desc': 'Успішна командна робота, апаратна інтеграція (hardware integration), тестування фізичного прототипу.',
-                'proj3-skill1': 'Командна робота',
+                'proj3-skill1': 'Комунікабельність',
                 'proj3-skill2': 'Hardware Int.',
                 'proj3-skill3': 'Фізичне тестування',
                 'proj-skills-achieved': 'Навички:',
@@ -830,6 +834,7 @@
                 'exp-job2-desc': 'Teaching clients to swim, improving technique. Experience working with foreigners. Also served as a competition judge.',
                 'exp-job3-title': 'Furniture Designer',
                 'exp-job3-dates': 'Past Experience',
+                'exp-job3-company': 'Not specified',
                 'exp-job3-desc': 'Creating and correcting drawings. The job required high attention to detail and accuracy.',
 
                 // Проекти (Projects)
@@ -935,52 +940,61 @@
         });
 
         // -----------------------------------------------------------
-        // 2. Typing Effect
+        // 2. Typing Effect (ВИПРАВЛЕНО)
         // -----------------------------------------------------------
         const textElement = document.getElementById('typing-text');
         
-        let currentLanguage = localStorage.getItem(LANGUAGE_KEY) || 'ukr'; // Початкова мова
+        let currentLanguage = localStorage.getItem(LANGUAGE_KEY) || 'ukr';
         let textList = translations[currentLanguage]['typing-texts'];
         
-        let count = 0;
-        let index = 0;
-        let currentText = "";
-        let letter = "";
+        let wordIndex = 0; // Індекс слова в масиві (раніше 'count')
+        let charIndex = 0; // Індекс символу в поточному слові (раніше 'index')
+        let typingTimeout;
+        let isDeleting = false; // Нова змінна стану
+        
+        // Функція для очищення всіх поточних таймерів анімації
+        function resetTyping() {
+            clearTimeout(typingTimeout);
+            wordIndex = 0;
+            charIndex = 0;
+            isDeleting = false;
+            textElement.textContent = "";
+        }
 
-        // Використовуємо функцію для плавного друку та паузи
-        function type() {
+        function animateTyping() {
             textList = translations[currentLanguage]['typing-texts'];
-            if (count === textList.length) {
-                count = 0;
-            }
-            currentText = textList[count];
-            letter = currentText.slice(0, ++index);
+            const currentWord = textList[wordIndex % textList.length];
 
-            textElement.textContent = letter;
-            if (letter.length === currentText.length) {
-                count++;
-                index = 0;
-                // Пауза 2 секунди, потім стирання
-                setTimeout(erase, 2000); 
+            if (isDeleting) {
+                // РЕЖИМ СТИРАННЯ
+                charIndex--;
             } else {
-                // Швидкість друку
-                setTimeout(type, 100);
+                // РЕЖИМ ДРУКУВАННЯ
+                charIndex++;
             }
+
+            // Оновлення тексту в DOM
+            textElement.textContent = currentWord.substring(0, charIndex);
+
+            let typeSpeed = 100;
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                // Слово повністю набрано -> Перехід до стирання
+                isDeleting = true;
+                typeSpeed = 2000; // Пауза перед початком стирання (2 сек)
+            } else if (isDeleting && charIndex === 0) {
+                // Слово повністю стерто -> Перехід до друкування наступного слова
+                isDeleting = false;
+                wordIndex++;
+                typeSpeed = 500; // Пауза перед початком друкування наступного слова
+            } else if (isDeleting) {
+                // Стирання символів
+                typeSpeed = 50;
+            }
+            
+            typingTimeout = setTimeout(animateTyping, typeSpeed);
         }
         
-        function erase() {
-             letter = currentText.slice(0, --index);
-             textElement.textContent = letter;
-             
-             if (letter.length === 0) {
-                 // Починаємо друкувати наступне слово
-                 setTimeout(type, 500);
-             } else {
-                 // Швидкість стирання
-                 setTimeout(erase, 50);
-             }
-        }
-
         // -----------------------------------------------------------
         // 3. ЛОГІКА ПЕРЕКЛАДУ ТА ПЕРЕМИКАННЯ
         // -----------------------------------------------------------
@@ -1005,13 +1019,10 @@
             // Оновлення тексту кнопки перемикача мови
             document.getElementById('current-lang-text').textContent = lang === 'ukr' ? 'УКР' : 'ENG';
 
-            // Скидання та перезапуск ефекту друкарської машинки
-            count = 0;
-            index = 0;
-            textElement.textContent = "";
-            // Оскільки ми не можемо скасувати поточний таймер typing/erasing, 
-            // просто запускаємо новий (вони з часом зрівняються)
-            type(); 
+            // Очищення та перезапуск ефекту друкарської машинки
+            resetTyping();
+            // Запускаємо анімацію з невеликою затримкою для плавного старту
+            setTimeout(animateTyping, 50); 
         }
 
         const langToggle = document.getElementById('lang-toggle');
@@ -1020,9 +1031,9 @@
             updateLanguage(newLang);
         });
         
-        // Ініціалізація: Завантаження початкової мови
-        updateLanguage(currentLanguage);
-
+        // Ініціалізація: Завантаження початкової мови та запуск друку
+        updateLanguage(currentLanguage); 
+        
         // -----------------------------------------------------------
         // 4. Scroll Animation (Intersection Observer)
         // -----------------------------------------------------------
