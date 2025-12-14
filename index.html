@@ -131,6 +131,11 @@
                         <a href="#projects" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Проекти</a>
                         <a href="#education" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Освіта</a>
                         <a href="#contacts" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Контакти</a>
+                        
+                        <!-- Кнопка "Завантажити CV" у навігації -->
+                        <a href="https://raw.githubusercontent.com/volodsvy-netizen/SV-project/4429fec2a7a8eca0020c3ab6123cb62dc8fd7120/CV.pdf" target="_blank" class="bg-primary hover:bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium transition-all shadow-md flex items-center">
+                            <i class="fas fa-download mr-2"></i> CV
+                        </a>
                     </div>
                 </div>
                 <!-- Кнопка теми -->
@@ -310,8 +315,11 @@
                     <img src="https://i.postimg.cc/kgCFQxBf/image.png" alt="Схема ультразвукового пристрою в Proteus" class="project-image w-full max-w-lg mx-auto rounded-lg shadow-lg my-4 border border-gray-300 dark:border-gray-600 h-auto object-contain cursor-pointer transition-shadow hover:shadow-xl">
                     <p class="text-sm font-semibold text-gray-700 dark:text-gray-200 mt-3">
                         Використані інструменти: 
-                        <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs">Proteus</span>
-                        <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs">Arduino IDE</span>
+                        <!-- Змінено пробіли, використано flex-wrap для коректного переносу -->
+                        <span class="flex flex-wrap mt-2">
+                            <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs mb-2 mr-3">Proteus</span>
+                            <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs mb-2 mr-3">Arduino IDE</span>
+                        </span>
                     </p>
                 </div>
                 
@@ -327,8 +335,11 @@
                     <img src="https://i.postimg.cc/PJtTbVnh/image.png" alt="Керування GPIO портом через мережевий інтерфейс" class="project-image w-full max-w-lg mx-auto rounded-lg shadow-lg my-4 border border-gray-300 dark:border-gray-600 h-auto object-contain cursor-pointer transition-shadow hover:shadow-xl">
                     <p class="text-sm font-semibold text-gray-700 dark:text-gray-200 mt-3">
                         Навички: 
-                        <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs">Налагодження мережі</span>
-                        <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs">Робота з мікроконтролерами</span>
+                        <!-- Змінено пробіли, використано flex-wrap для коректного переносу, скорочено текст -->
+                        <span class="flex flex-wrap mt-2">
+                            <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs mb-2 mr-3">Налагодження мереж.</span>
+                            <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs mb-2 mr-3">Робота з мікроконтролерами</span>
+                        </span>
                     </p>
                 </div>
 
@@ -356,9 +367,12 @@
                     </div>
                     <p class="text-sm font-semibold text-gray-700 dark:text-gray-200 mt-3">
                         Навички: 
-                        <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs">Командна робота</span>
-                        <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs">Hardware Integration</span>
-                        <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs">Фізичне тестування</span>
+                        <!-- Змінено пробіли, використано flex-wrap для коректного переносу, скорочено текст -->
+                        <span class="flex flex-wrap mt-2">
+                            <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs mb-2 mr-3">Командна робота</span>
+                            <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs mb-2 mr-3">Hardware Int.</span>
+                            <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs mb-2 mr-3">Фізичне тестування</span>
+                        </span>
                     </p>
                 </div>
 
@@ -374,8 +388,8 @@
             <!-- ОСНОВНА СІТКА НАВИЧОК -->
             <div class="grid md:grid-cols-2 gap-12">
                 
-                <!-- КОЛОНКА 1: Hard Skills (QA/Dev) -->
-                <div>
+                <!-- КОЛОНКА 1: Hard Skills (QA/Dev) - Додано тінь та збільшено заокруглення -->
+                <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
                     <h3 class="text-xl font-semibold mb-6 flex items-center">
                         <i class="fas fa-tools mr-3 text-primary"></i> Професійні навички (QA / Dev)
                     </h3>
@@ -423,8 +437,8 @@
                     </div>
                 </div>
 
-                <!-- КОЛОНКА 2: Electronics / CAD Skills -->
-                <div id="electronics-skills">
+                <!-- КОЛОНКА 2: Electronics / CAD Skills - Додано тінь та збільшено заокруглення -->
+                <div id="electronics-skills" class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
                     <h3 class="text-xl font-semibold mb-6 flex items-center">
                         <i class="fas fa-microchip mr-3 text-primary"></i> Програмне забезпечення (Електроніка / САПР)
                     </h3>
@@ -469,21 +483,23 @@
                 </h3>
                 
                 <div class="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-4 justify-center">
-                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg text-center border-l-4 border-yellow-400">
+                    <!-- Картки мов - Додано тінь та збільшено заокруглення -->
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-xl text-center border-l-4 border-yellow-400 shadow-md">
                         <span class="block font-bold">Українська</span>
                         <span class="text-sm text-gray-500 dark:text-gray-400">Рідна</span>
                     </div>
-                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg text-center border-l-4 border-blue-400">
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-xl text-center border-l-4 border-blue-400 shadow-md">
                         <span class="block font-bold">English</span>
                         <span class="text-sm text-gray-500 dark:text-gray-400">Intermediate (Спілкування на робочих колах)</span>
                     </div>
                 </div>
 
+                <!-- Софт скіли - Додано легку тінь для виділення -->
                 <div class="flex flex-wrap gap-3 justify-center">
-                    <span class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm font-medium whitespace-nowrap">Комунікабельність</span>
-                    <span class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm font-medium whitespace-nowrap">Відповідальність</span>
-                    <span class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm font-medium whitespace-nowrap">Пунктуальність</span>
-                    <span class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm font-medium whitespace-nowrap">Увага до деталей</span>
+                    <span class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm font-medium whitespace-nowrap shadow-sm">Комунікабельність</span>
+                    <span class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm font-medium whitespace-nowrap shadow-sm">Відповідальність</span>
+                    <span class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm font-medium whitespace-nowrap shadow-sm">Пунктуальність</span>
+                    <span class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm font-medium whitespace-nowrap shadow-sm">Увага до деталей</span>
                 </div>
             </div>
         </div>
@@ -570,6 +586,13 @@
                     <span class="font-medium">Львів, Україна</span>
                     <span class="text-xs text-gray-500 dark:text-gray-400 mt-1">Народився: 14.02.2004</span>
                 </div>
+            </div>
+
+            <!-- Додано кнопку Завантажити CV -->
+            <div class="text-center mt-12 fade-in-up">
+                <a href="https://raw.githubusercontent.com/volodsvy-netizen/SV-project/4429fec2a7a8eca0020c3ab6123cb62dc8fd7120/CV.pdf" target="_blank" class="inline-flex items-center bg-primary hover:bg-blue-600 text-white px-8 py-3 rounded-full font-medium transition-all transform hover:scale-105 shadow-xl text-lg" id="download-cv-btn">
+                    <i class="fas fa-file-pdf mr-3"></i> Завантажити CV (PDF)
+                </a>
             </div>
 
             <!-- Footer -->
@@ -745,6 +768,9 @@
                 closeModal();
             }
         });
+        
+        // Видалено: Додаткова функціональність: імітація завантаження CV
+        // Кнопка тепер використовує пряме посилання через атрибут href.
 
     </script>
 </body>
