@@ -1,83 +1,151 @@
- /* Кастомні анімації */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .fade-in-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+/* -----------------------------------------------------------
+   1. ЗМІННІ (CSS Variables) & ТЕМИ
+   ----------------------------------------------------------- */
+:root {
+    /* Кольорова палітра - Світла тема (за замовчуванням) */
+    --primary-color: #3b82f6;         /* Синій (Tailwind blue-500) */
+    --primary-rgb: 59, 130, 246;      /* RGB для прозорості */
+    --bg-body: #ffffff;
+    --text-main: #1f2937;             /* Темно-сірий текст */
+    --scrollbar-track: #f1f1f1;
+    --scrollbar-thumb: #888;
+    --scrollbar-thumb-hover: #555;
+    
+    /* Швидкість анімацій */
+    --transition-speed: 0.3s;
+}
 
-        /* Анімація заповнення прогрес-барів */
-        .progress-bar-inner {
-            /* Переконаємося, що початкова ширина 0 для плавного заповнення */
-            width: 0;
-            transition: width 1.5s ease-out;
-        }
-        .skills-visible .progress-bar-inner {
-            /* Встановлюємо фінальну ширину після активації */
-            width: var(--progress-width);
-        }
-        
-        /* Анімація Пульсація для контактів */
-        @keyframes pulse-once {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); box-shadow: 0 0 0 5px rgba(59, 130, 246, 0.4); }
-            100% { transform: scale(1); box-shadow: none; }
-        }
-        .contact-icon:hover {
-            animation: pulse-once 0.5s ease-in-out;
-        }
+/* Темна тема (додайте клас .dark-mode до body) */
+body.dark-mode {
+    --primary-color: #60a5fa;         /* Світліший синій для темного фону */
+    --primary-rgb: 96, 165, 250;
+    --bg-body: #111827;               /* Майже чорний (Tailwind gray-900) */
+    --text-main: #f3f4f6;             /* Світлий текст */
+    --scrollbar-track: #374151;
+    --scrollbar-thumb: #6b7280;
+    --scrollbar-thumb-hover: #9ca3af;
+}
 
+/* Базові стилі для плавного переходу тем */
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
 
-        /* Ефект друкарської машинки */
-        .typing-cursor::after {
-            content: '|';
-            animation: blink 1s step-start infinite;
-        }
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
+/* -----------------------------------------------------------
+   2. FLEXBOX УТИЛІТИ (Для вирівнювання)
+   ----------------------------------------------------------- */
+/* Центрування всього вмісту */
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        /* Стилізація скролбару */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #888; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555; 
-        }
+/* Розподіл по краях (наприклад, лого зліва, меню справа) */
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        /* Стилі для модального вікна */
-        .modal {
-            transition: opacity 0.3s ease-in-out;
-        }
-        
-        /* Анімація для фонових елементів */
-        @keyframes blob {
-            0% {
-                transform: translate(0px, 0px) scale(1);
-            }
-            33% {
-                transform: translate(30px, -50px) scale(1.1);
-            }
-            66% {
-                transform: translate(-20px, 20px) scale(0.9);
-            }
-            100% {
-                transform: translate(0px, 0px) scale(1);
-            }
-        }
-        .animate-blob {
-            animation: blob 7s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-        }
-        .animation-delay-2000 {
-            animation-delay: 2s;
-        }
+/* Колонка з вирівнюванням по центру */
+.flex-col-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* -----------------------------------------------------------
+   3. КАСТОМНІ АНІМАЦІЇ
+   ----------------------------------------------------------- */
+/* Поява знизу */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Анімація заповнення прогрес-барів */
+.progress-bar-inner {
+    width: 0;
+    background-color: var(--primary-color); /* Використовуємо змінну */
+    transition: width 1.5s ease-out;
+}
+.skills-visible .progress-bar-inner {
+    width: var(--progress-width);
+}
+
+/* Анімація "Пульсація" для контактів */
+@keyframes pulse-once {
+    0% { 
+        transform: scale(1); 
+    }
+    50% { 
+        transform: scale(1.05); 
+        /* Використовуємо змінну RGB для тіні */
+        box-shadow: 0 0 0 5px rgba(var(--primary-rgb), 0.4); 
+    }
+    100% { 
+        transform: scale(1); 
+        box-shadow: none; 
+    }
+}
+.contact-icon:hover {
+    animation: pulse-once 0.5s ease-in-out;
+    color: var(--primary-color); /* Підсвітка іконки при наведенні */
+}
+
+/* Ефект друкарської машинки */
+.typing-cursor::after {
+    content: '|';
+    animation: blink 1s step-start infinite;
+    color: var(--primary-color);
+}
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* -----------------------------------------------------------
+   4. СТИЛІЗАЦІЯ СКРОЛБАРУ (Webkit)
+   ----------------------------------------------------------- */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track); 
+}
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb); 
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover); 
+}
+
+/* -----------------------------------------------------------
+   5. ДОДАТКОВІ ЕЛЕМЕНТИ
+   ----------------------------------------------------------- */
+/* Стилі для модального вікна */
+.modal {
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Анімація для фонових елементів (Blobs) */
+@keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0px, 0px) scale(1); }
+}
+.animate-blob {
+    animation: blob 7s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+.animation-delay-2000 {
+    animation-delay: 2s;
+}
