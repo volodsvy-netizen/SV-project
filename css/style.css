@@ -149,3 +149,28 @@ body {
 .animation-delay-2000 {
     animation-delay: 2s;
 }
+/* --- Стилі для Пасхалки (Bug) --- */
+.bug-element {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 30px; /* Розмір жука */
+    cursor: pointer;
+    z-index: 9999; /* Щоб був поверх усіх елементів */
+    user-select: none; /* Щоб не виділявся як текст */
+    transition: all 0.5s ease-in-out; /* Плавний рух */
+    animation: bug-wiggle 3s infinite; /* Анімація "ворушіння" */
+}
+
+/* Ефект при наведенні - жук лякається (трохи збільшується) */
+.bug-element:hover {
+    transform: scale(1.2) rotate(10deg);
+}
+
+/* Анімація, щоб жук не виглядав мертвим */
+@keyframes bug-wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    75% { transform: rotate(-5deg); }
+}
+
