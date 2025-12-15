@@ -278,4 +278,41 @@ document.addEventListener('keydown', (e) => {
             closeDownloadModal();
         }
     }
+    /* --- Logic for QA Bug Easter Egg --- */
+const bug = document.getElementById('qa-bug');
+
+// Функція для випадкового переміщення жука
+function moveBugRandomly() {
+    // Отримуємо розміри вікна
+    const windowHeight = window.innerHeight;
+    const windowWidth = window.innerWidth;
+
+    // Генеруємо випадкові координати (відступаємо 50px від країв)
+    const randomTop = Math.floor(Math.random() * (windowHeight - 50));
+    const randomLeft = Math.floor(Math.random() * (windowWidth - 50));
+
+    // Застосовуємо нові координати
+    bug.style.top = `${randomTop}px`;
+    bug.style.left = `${randomLeft}px`;
+}
+
+// Жук перебігає на нове місце кожні 5 секунд
+// (Можна змінити 5000 на інше число мілісекунд, або прибрати, якщо хочеш, щоб він сидів на місці)
+const bugInterval = setInterval(moveBugRandomly, 5000);
+
+// Подія при кліку на жука
+bug.addEventListener('click', () => {
+    // Зупиняємо його рух
+    clearInterval(bugInterval);
+    
+    // Показуємо повідомлення
+    alert("🐛 БАГ ЗЛОВЛЕНО!\n\nВітаю! Ти знайшов пасхалку.\nЯк QA Engineer, я знаходжу баги ще швидше! 😉");
+    
+    // Жук "фікситься" (зникає)
+    bug.style.display = 'none';
+    
+    // Можна додати запис в консоль для рекрутерів, які люблять F12
+    console.log("Bug fixed by user! Good job.");
 });
+});
+
