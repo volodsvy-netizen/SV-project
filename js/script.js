@@ -287,40 +287,72 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('DOMContentLoaded', function() {
     
     const bug = document.getElementById('qa-bug');
+    const modal = document.getElementById('bug-modal');
+    const closeBtn = document.getElementById('close-modal-btn');
 
-    if (bug) {
+    if (bug && modal && closeBtn) {
         
+        let bugInterval;
+
         function moveBugRandomly() {
             const windowHeight = window.innerHeight;
             const windowWidth = window.innerWidth;
             
-            // Генеруємо нові координати
+            // Нові координати
             const randomTop = Math.floor(Math.random() * (windowHeight - 100));
             const randomLeft = Math.floor(Math.random() * (windowWidth - 100));
 
-            // ВАЖЛИВО: Скидаємо прив'язку до нижнього правого кута
+            // Скидаємо прив'язку до низу, щоб працювали top/left
             bug.style.bottom = 'auto';
             bug.style.right = 'auto';
             
-            // Задаємо нову позицію
             bug.style.top = `${randomTop}px`;
             bug.style.left = `${randomLeft}px`;
         }
 
-        // Запускаємо рух кожні 2 секунди (швидше, щоб ти побачив)
-        const bugInterval = setInterval(moveBugRandomly, 2000);
+        // Запускаємо рух
+        bugInterval = setInterval(moveBugRandomly, 2000);
 
+        // КЛІК ПО ЖУКУ
         bug.addEventListener('click', () => {
+            // 1. Зупиняємо рух
             clearInterval(bugInterval);
             
-            // Спочатку ховаємо жука
-            bug.style.display = 'none';
+            // 2. Міняємо вигляд на вибух/емоджі
+            bug.innerHTML = '💥'; 
+            bug.style.fontSize = '50px'; // Робимо вибух більшим
             
-            // Потім показуємо повідомлення (з невеликою затримкою, щоб браузер встиг сховати жука)
+            // 3. Запускаємо CSS анімацію зникнення
+            bug.classList.add('bug-exploded');
+
+            // 4. Через секунду (коли анімація пройде) показуємо вікно
             setTimeout(() => {
-                alert("🐛 БАГ ЗЛОВЛЕНО!\n\nВітаю! Ти знайшов пасхалку.\nЯк QA Engineer, я фікшу баги миттєво! 😉");
-            }, 100);
+                bug.style.display = 'none'; // Остаточно прибираємо елемент
+                openModal();
+            }, 800); 
+        });
+
+        // Функція відкриття вікна
+        function openModal() {
+            modal.classList.add('show');
+        }
+
+        // Функція закриття вікна
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('show');
+            
+            // Тут є нюанс: після закриття transition (0.3s) треба сховати display: none
+            // Але CSS клас 'show' вже керує цим через opacity, тому JS тут простий.
+            setTimeout(() => {
+                 modal.style.display = 'none'; 
+            }, 300);
         });
         
+        // Закриття при кліку поза вікном (на темний фон)
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeBtn.click();
+            }
+        });
     }
 });
